@@ -8,7 +8,7 @@ SRCS = $(wildcard $(SRC_DIR)/*.c)
 OBJS = $(patsubst $(SRC_DIR)/%.c,$(BUILD_DIR)/%.o,$(SRCS))
 
 CC = gcc
-CFLAGS = -I$(INC_DIR) -Wall -Wextra
+CFLAGS = -I$(INC_DIR) -Wall -Wextra -Werror
 
 all: $(EXEC)
 
