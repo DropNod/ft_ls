@@ -24,6 +24,31 @@ int count_entrys(const char *dir_name)
   return (output);
 }
 
+void alpha_sort(dir_t *dir)
+{
+  struct dirent *tmp;
+
+  for (int i = 0; i < dir->nb_entrys; i++)
+  {
+    for (int j = i + 1; j < dir->nb_entrys; j++)
+    {
+      for (int k = 0; dir->entrys[i]->d_name[k] && dir->entrys[j]->d_name[k]; k++)
+      {
+        if (dir->entrys[i]->d_name[k] != dir->entrys[j]->d_name[k])
+        {
+          if (dir->entrys[i]->d_name[k] > dir->entrys[j]->d_name[k])
+          {
+            tmp = dir->entrys[i];
+            dir->entrys[i] = dir->entrys[j];
+            dir->entrys[j] = tmp;
+          }
+          break ;
+        }
+      }
+    }
+  }
+}
+
 dir_t init_dir(const char *dir_name)
 {
   DIR *dir;
@@ -35,6 +60,7 @@ dir_t init_dir(const char *dir_name)
   for (int i = 0; i < output.nb_entrys; i++)
     output.entrys[i] = readdir(dir);
   closedir(dir);
+  alpha_sort(&output);
   return (output);
 }   
 
